@@ -101,6 +101,85 @@ def snap-upgrade [] {
     print "✅ Snap updates completed!"
 }
 
+def guix-upgrade [] {
+    print "📦 Checking for Guix..."
+
+    if (which guix | get path | is-empty ) {
+       print "ℹ️ Guix not installed, skipping Guix updates"
+       return
+    }
+    
+    print "📦 Upgrading Guix packages..."
+    
+    print "🔄 Upgrading root Guix packages..."
+    try {
+        sudo guix pull
+        sudo guix package -u
+        print "✅ Root Guix packages updated successfully"
+    } catch {
+        print "ℹ️ No root Guix packages to update"
+    }
+    
+    print "🔄 Installing/updating nss-certs for root..."
+    try {
+        sudo guix install nss-certs
+        print "✅ Root nss-certs updated successfully"
+    } catch {
+        print "ℹ️ Root nss-certs already up to date"
+    }
+    
+    print "🔄 Upgrading user Guix packages..."
+    try {
+        guix pull
+        guix package -u
+        print "✅ User Guix packages updated successfully"
+    } catch {
+        print "ℹ️ No user Guix packages to update"
+    }
+    
+    print "🔄 Installing/updating nss-certs for user..."
+    try {
+        guix install nss-certs
+        print "✅ User nss-certs updated successfully"
+    } catch {
+        print "ℹ️ User nss-certs already up to date"
+    }
+    
+    print "🗑️ Cleaning up old root generations (>30 days)..."
+    try {
+        sudo guix package --delete-generations=30d
+        print "✅ Old root generations removed"
+    } catch {
+        print "ℹ️ No old root generations to remove"
+    }
+    
+    print "🗑️ Cleaning up old user generations (>30 days)..."
+    try {
+        guix package --delete-generations=30d
+        print "✅ Old user generations removed"
+    } catch {
+        print "ℹ️ No old user generations to remove"
+    }
+    
+    print "🧹 Running garbage collection for root..."
+    try {
+        sudo guix gc
+        print "✅ Root garbage collection completed"
+    } catch {
+        print "ℹ️ Root garbage collection had no effect"
+    }
+    
+    print "🧹 Running garbage collection for user..."
+    try {
+        guix gc
+        print "✅ User garbage collection completed"
+    } catch {
+        print "ℹ️ User garbage collection had no effect"
+    }
+    
+    print "✅ Guix updates completed!"
+}
+
 def main [] {
     print "🚀 Starting system update process..."
     print "=================================================="
@@ -116,6 +195,10 @@ def main [] {
     print "\n📦 SNAP PACKAGE UPDATES"
     print "=================================================="
     snap-upgrade
+    
+    print "\n📦 GUIX PACKAGE UPDATES"
+    print "=================================================="
+    guix-upgrade
     
     print "\n🎉 All package updates completed!"
     print "=================================================="
