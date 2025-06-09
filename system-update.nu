@@ -68,8 +68,36 @@ def flatpak-upgrade [] {
     print "✅ Flatpak updates completed!"
 }
 
+def snap-upgrade [] {
+    print "📦 Upgrading Snap applications..."
+    
+    print "🔄 Upgrading Snaps..."
+    try {
+        sudo snap refresh
+        print "✅ Snaps updated successfully"
+    } catch {
+        print "ℹ️ No Snaps to update"
+    }
+    
+    print "🗑️ Removing disabled Snaps..."
+    try {
+        sudo snap list --all | lines | skip 1 | where ($it | str contains "disabled") | each { |line| 
+            let parts = ($line | split row -r '\s+')
+            let name = ($parts | get 0)
+            let revision = ($parts | get 2)
+            sudo snap remove $name --revision=$revision
+        }
+        print "✅ Disabled Snaps removed"
+    } catch {
+        print "ℹ️ No disabled Snaps to remove"
+    }
+    
+    print "✅ Snap updates completed!"
+}
+
 def main [] {
     print "🚀 Starting system update process..."
     apt-upgrade
     flatpak-upgrade
+    snap-upgrade
 }
