@@ -1,6 +1,15 @@
 #!/usr/bin/env -S nu
 
 def apt-upgrade [] {
+    print "📦 Checking for APT..."
+    
+    try {
+        which apt | get path
+    } catch {
+        print "ℹ️ APT not installed, skipping APT updates"
+        return
+    }
+    
     print "🔄 Updating package database..."
     try {
         sudo apt update
