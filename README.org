@@ -5,7 +5,7 @@
 Nushell script to detect installed package managers and apply updates.
 
 * Support
-[[https://gitlab.com/nrvale0/system-update.nu][system-update.nu · GitLab]]
+[[https://gitlab.com/nrvale0/system-update.nu/-/issues][system-update.nu · GitLab]]
 
 * Supported package managers
 + [X] apt
