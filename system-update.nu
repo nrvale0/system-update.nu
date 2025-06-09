@@ -31,6 +31,15 @@ def apt-upgrade [] {
 }
 
 def flatpak-upgrade [] {
+    print "📦 Checking for Flatpak..."
+    
+    try {
+        which flatpak | get path
+    } catch {
+        print "ℹ️ Flatpak not installed, skipping Flatpak updates"
+        return
+    }
+    
     print "📦 Upgrading Flatpak applications..."
     
     print "🔄 Upgrading system Flatpaks..."
