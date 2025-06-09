@@ -118,20 +118,20 @@ def snap-upgrade [] {
 
 def main [] {
     print "🚀 Starting system update process..."
-    print ("=" * 50)
+    print "=================================================="
     
     print "\n📦 APT PACKAGE UPDATES"
-    print ("=" * 50)
+    print "=================================================="
     apt-upgrade
     
     print "\n📦 FLATPAK PACKAGE UPDATES"
-    print ("=" * 50)
+    print "=================================================="
     flatpak-upgrade
     
     print "\n📦 SNAP PACKAGE UPDATES"
-    print ("=" * 50)
+    print "=================================================="
     snap-upgrade
     
     print "\n🎉 All package updates completed!"
-    print ("=" * 50)
+    print "=================================================="
 }
