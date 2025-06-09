@@ -4,7 +4,7 @@
 
 Nushell script to detect installed package managers and apply updates.
 
-* Support
+* Bugs and Feature Requests
 [[https://gitlab.com/nrvale0/system-update.nu/-/issues][system-update.nu · GitLab]]
 
 * Supported package managers
@@ -17,3 +17,4 @@ Nushell script to detect installed package managers and apply updates.
 + [ ] nix
 + [ ] cargo
 + [ ] end of run summary table
+
