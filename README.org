@@ -16,5 +16,6 @@ Nushell script to detect installed package managers and apply updates.
 * Pending work
 + [ ] nix
 + [ ] cargo
++ [ ] pipx
 + [ ] end of run summary table
 
