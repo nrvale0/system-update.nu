@@ -2,12 +2,21 @@
 
 def apt-upgrade [] {
     print "🔄 Updating package database..."
-    sudo apt update
+    try {
+        sudo apt update
+        print "✅ Package database updated successfully"
+    } catch {
+        print "❌ Failed to update package database"
+        return
+    }
     
     print "⬆️ Upgrading packages..."
-    sudo apt upgrade -y
-    
-    print "✅ System update completed!"
+    try {
+        sudo apt upgrade -y
+        print "✅ System update completed!"
+    } catch {
+        print "❌ Failed to upgrade packages"
+    }
 }
 
 def main [] {
