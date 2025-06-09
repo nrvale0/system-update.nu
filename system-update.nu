@@ -43,7 +43,7 @@ def flatpak-upgrade [] {
     
     print "🗑️ Removing end-of-life system Flatpaks..."
     try {
-        sudo flatpak uninstall --unused -y
+        sudo flatpak uninstall --unused --delete-data -y
         print "✅ End-of-life system Flatpaks removed"
     } catch {
         print "ℹ️ No end-of-life system Flatpaks to remove"
@@ -59,7 +59,7 @@ def flatpak-upgrade [] {
     
     print "🗑️ Removing end-of-life user Flatpaks..."
     try {
-        flatpak uninstall --user --unused -y
+        flatpak uninstall --user --unused --delete-data -y
         print "✅ End-of-life user Flatpaks removed"
     } catch {
         print "ℹ️ No end-of-life user Flatpaks to remove"
