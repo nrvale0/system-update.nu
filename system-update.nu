@@ -19,7 +19,30 @@ def apt-upgrade [] {
     }
 }
 
+def flatpak-upgrade [] {
+    print "📦 Upgrading Flatpak applications..."
+    
+    print "🔄 Upgrading system Flatpaks..."
+    try {
+        sudo flatpak update -y
+        print "✅ System Flatpaks updated successfully"
+    } catch {
+        print "❌ Failed to update system Flatpaks (or none installed)"
+    }
+    
+    print "🔄 Upgrading user Flatpaks..."
+    try {
+        flatpak update --user -y
+        print "✅ User Flatpaks updated successfully"
+    } catch {
+        print "❌ Failed to update user Flatpaks (or none installed)"
+    }
+    
+    print "✅ Flatpak updates completed!"
+}
+
 def main [] {
     print "🚀 Starting system update process..."
     apt-upgrade
+    flatpak-upgrade
 }
