@@ -99,11 +99,14 @@ def snap-upgrade [] {
     
     print "🗑️ Removing disabled Snaps..."
     try {
-        sudo snap list --all | lines | skip 1 | where ($it | str contains "disabled") | each { |line| 
-            let parts = ($line | split row -r '\s+')
-            let name = ($parts | get 0)
-            let revision = ($parts | get 2)
-            sudo snap remove $name --revision=$revision
+        let disabled_snaps = (sudo snap list --all | lines | skip 1 | where ($it | str contains "disabled"))
+        if ($disabled_snaps | length) > 0 {
+            $disabled_snaps | each { |line| 
+                let parts = ($line | split row -r '\s+')
+                let name = ($parts | get 0)
+                let revision = ($parts | get 2)
+                sudo snap remove $name --revision=$revision --purge
+            }
         }
         print "✅ Disabled Snaps removed"
     } catch {
