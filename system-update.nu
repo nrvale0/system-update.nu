@@ -88,12 +88,10 @@ def flatpak-upgrade [] {
 
 def snap-upgrade [] {
     print "📦 Checking for Snap..."
-    
-    try {
-        which snap | get path
-    } catch {
-        print "ℹ️ Snap not installed, skipping Snap updates"
-        return
+
+    if (which snap | get path | empty? ) {
+       print "ℹ️ Snap not installed, skipping Snap updates"
+       return
     }
     
     print "📦 Upgrading Snap applications..."
@@ -104,24 +102,6 @@ def snap-upgrade [] {
         print "✅ Snaps updated successfully"
     } catch {
         print "ℹ️ No Snaps to update"
-    }
-    
-    print "🗑️ Removing disabled Snaps..."
-    try {
-        let disabled_snaps = (sudo snap list --all | lines | skip 1 | where ($it | str contains "disabled"))
-        if ($disabled_snaps | length) > 0 {
-            for line in $disabled_snaps {
-                let parts = ($line | split row -r '\s+')
-                let name = ($parts | get 0)
-                let revision = ($parts | get 2)
-                sudo snap remove $name --revision=$revision --purge
-            }
-            print "✅ Disabled Snaps removed"
-        } else {
-            print "ℹ️ No disabled Snaps to remove"
-        }
-    } catch {
-        print "ℹ️ No disabled Snaps to remove"
     }
     
     print "✅ Snap updates completed!"
