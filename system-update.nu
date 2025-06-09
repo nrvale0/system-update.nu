@@ -13,10 +13,21 @@ def apt-upgrade [] {
     print "⬆️ Upgrading packages..."
     try {
         sudo apt upgrade -y
-        print "✅ System update completed!"
+        print "✅ Packages upgraded successfully"
     } catch {
         print "❌ Failed to upgrade packages"
+        return
     }
+    
+    print "🧹 Cleaning up no longer needed packages..."
+    try {
+        sudo apt autoremove -y
+        print "✅ Package cleanup completed"
+    } catch {
+        print "❌ Failed to clean up packages"
+    }
+    
+    print "✅ System update completed!"
 }
 
 def flatpak-upgrade [] {
