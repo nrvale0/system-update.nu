@@ -3,11 +3,9 @@
 def apt-upgrade [] {
     print "📦 Checking for APT..."
     
-    try {
-        which apt | get path
-    } catch {
-        print "ℹ️ APT not installed, skipping APT updates"
-        return
+    if (which apt | get path | empty? ) {
+       print "ℹ️ APT not installed, skipping APT updates"
+       return
     }
     
     print "🔄 Updating package database..."
@@ -42,11 +40,9 @@ def apt-upgrade [] {
 def flatpak-upgrade [] {
     print "📦 Checking for Flatpak..."
     
-    try {
-        which flatpak | get path
-    } catch {
-        print "ℹ️ Flatpak not installed, skipping Flatpak updates"
-        return
+    if (which flatpak | get path | empty? ) {
+       print "ℹ️ Flatpak not installed, skipping Flatpak updates"
+       return
     }
     
     print "📦 Upgrading Flatpak applications..."
