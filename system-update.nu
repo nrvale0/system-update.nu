@@ -78,6 +78,15 @@ def flatpak-upgrade [] {
 }
 
 def snap-upgrade [] {
+    print "📦 Checking for Snap..."
+    
+    try {
+        which snap | get path
+    } catch {
+        print "ℹ️ Snap not installed, skipping Snap updates"
+        return
+    }
+    
     print "📦 Upgrading Snap applications..."
     
     print "🔄 Upgrading Snaps..."
