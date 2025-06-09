@@ -1,0 +1,12 @@
+:PROPERTIES:
+:EXPORT_TITLE: system-update.nu
+:END:
+
+Nushell script to detect installed package managers and apply updates.
+
+* supported package managers
++ [ ] apt
++ [ ] flatpak
++ [ ] guix
+
+

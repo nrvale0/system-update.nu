@@ -3,7 +3,7 @@
 def apt-upgrade [] {
     print "📦 Checking for APT..."
     
-    if (which apt | get path | empty? ) {
+    if (which apt | get path | is-empty ) {
        print "ℹ️ APT not installed, skipping APT updates"
        return
     }
@@ -40,7 +40,7 @@ def apt-upgrade [] {
 def flatpak-upgrade [] {
     print "📦 Checking for Flatpak..."
     
-    if (which flatpak | get path | empty? ) {
+    if (which flatpak | get path | is-empty ) {
        print "ℹ️ Flatpak not installed, skipping Flatpak updates"
        return
     }
@@ -85,12 +85,10 @@ def flatpak-upgrade [] {
 def snap-upgrade [] {
     print "📦 Checking for Snap..."
 
-    if (which snap | get path | empty? ) {
+    if (which snap | get path | is-empty ) {
        print "ℹ️ Snap not installed, skipping Snap updates"
        return
     }
-    
-    print "📦 Upgrading Snap applications..."
     
     print "🔄 Upgrading Snaps..."
     try {
