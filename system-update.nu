@@ -38,7 +38,15 @@ def flatpak-upgrade [] {
         sudo flatpak update -y
         print "✅ System Flatpaks updated successfully"
     } catch {
-        print "❌ Failed to update system Flatpaks (or none installed)"
+        print "ℹ️ No system Flatpaks to update"
+    }
+    
+    print "🗑️ Removing end-of-life system Flatpaks..."
+    try {
+        sudo flatpak uninstall --unused -y
+        print "✅ End-of-life system Flatpaks removed"
+    } catch {
+        print "ℹ️ No end-of-life system Flatpaks to remove"
     }
     
     print "🔄 Upgrading user Flatpaks..."
@@ -46,7 +54,15 @@ def flatpak-upgrade [] {
         flatpak update --user -y
         print "✅ User Flatpaks updated successfully"
     } catch {
-        print "❌ Failed to update user Flatpaks (or none installed)"
+        print "ℹ️ No user Flatpaks to update"
+    }
+    
+    print "🗑️ Removing end-of-life user Flatpaks..."
+    try {
+        flatpak uninstall --user --unused -y
+        print "✅ End-of-life user Flatpaks removed"
+    } catch {
+        print "ℹ️ No end-of-life user Flatpaks to remove"
     }
     
     print "✅ Flatpak updates completed!"
