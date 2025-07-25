@@ -1,5 +1,23 @@
 #!/usr/bin/env -S nu
 
+def pipx-upgrade [] {
+    print "📦 Checking for pipx..."
+
+    if (which pipx | get path | is-empty ) {
+       print "ℹ️ pipx not installed, skipping pipx updates"
+       return
+    }
+
+    print "⬆️ Upgrading pipx packages..."
+    try {
+        pipx upgrade-all
+        print "✅ pipx packages upgraded successfully"
+    } catch {
+        print "❌ Failed to upgrade pipx packages"
+        return
+    }
+}
+
 def apt-upgrade [] {
     print "📦 Checking for APT..."
     
@@ -184,10 +202,14 @@ def main [] {
     print "🚀 Starting system update process..."
     print "=================================================="
     
-    print "\n📦 APT PACKAGE UPDATES"
+    print "\n📦 APT PACKAGE UPGRADES"
     print "=================================================="
     apt-upgrade
     
+    print "\n📦 PIPX PACKAGE UPDATES"
+    print "=================================================="
+    pipx-upgrade
+
     print "\n📦 FLATPAK PACKAGE UPDATES"
     print "=================================================="
     flatpak-upgrade
@@ -197,6 +219,24 @@ def main [] {
     snap-upgrade
     
     print "\n📦 GUIX PACKAGE UPDATES"
+    print "=================================================="
+    guix-upgrade
+    print "=================================================="
+    apt-upgrade
+
+    print "\n📦 PIPX PACKAGE UPGRADES"
+    print "=================================================="
+    pipx-upgrade
+
+    print "\n📦 FLATPAK PACKAGE UPGRADES"
+    print "=================================================="
+    flatpak-upgrade
+    
+    print "\n📦 SNAP PACKAGE UPGRADES"
+    print "=================================================="
+    snap-upgrade
+    
+    print "\n📦 GUIX PACKAGE UPGRADES"
     print "=================================================="
     guix-upgrade
     

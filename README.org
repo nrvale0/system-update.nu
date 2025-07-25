@@ -12,11 +12,10 @@ Nushell script to detect installed package managers and apply updates.
 + [X] flatpak
 + [X] snap  
 + [X] guix
++ [X] pipx  
 
 * Pending work
 + [ ] nix
 + [ ] cargo
-+ [ ] pipx
 + [ ] dnf
 + [ ] end of run summary table
-
