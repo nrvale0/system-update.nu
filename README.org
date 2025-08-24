@@ -15,6 +15,7 @@ Nushell script to detect installed package managers and apply updates.
 + [X] pipx  
 
 * Pending work
++ [ ] pacman/yay
 + [ ] nix
 + [ ] cargo
 + [ ] dnf
